@@ -28,10 +28,11 @@ The configuration of the video is set on file `and /src/uploadClass/config.in`:
 
 ```
 [video]
-keywords="FSD, full-time, cohort8",
-playlist_id="PL166HWJqwomYGSkUuEz4NpQWvLNlzlpiB"
-description="Class from the CodeOp FSD bootcamp"
+keywords=FSD, full-time, cohort8
+playlist_id=PL166HWJqwomYGSkUuEz4NpQWvLNlzlpiB
+description=Class from the CodeOp FSD bootcamp
 ```
+Please note that there are no quotes or commas, enclosing or separating the values in the configuration file!
 
 The keywords, and description set the keywords and description to be associated with the video you want to upload.
 
@@ -57,7 +58,7 @@ docker build -t uploadclass .
 With Python:
 
 ```
-python2 upload_video.py --file="/home/joana/purpose.mp4" \
+python2 upload_video.py --file="/tmp/zoom_0.mp4" \
                        --title="Looping through objects" 
 ```
 

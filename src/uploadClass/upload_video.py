@@ -148,9 +148,8 @@ def resumable_upload(insert_request):
         if 'id' in response:
           print "Video id '%s' was successfully uploaded." % response['id']
           # Add video to playlist
-          playlistID=playlist_id[1:-1] # strip quotes from string
-          add_video_to_playlist(youtube,response['id'],playlistID)
-
+          #playlistID=playlist_id.strip('"') # strip quotes from string
+          add_video_to_playlist(youtube,response['id'],playlist_id)
         else:
           exit("The upload failed with an unexpected response: %s" % response)
     except HttpError, e:
@@ -191,9 +190,6 @@ def add_video_to_playlist(youtube,videoID,playlistID):
             }
       }
   ).execute()
-
-
-
 
 
 if __name__ == '__main__':
