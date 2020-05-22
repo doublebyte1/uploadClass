@@ -70,7 +70,7 @@ docker run  -v /tmp:/movies uploadclass --file="/movies/purpose.mp4" --title="Lo
 
 When passing the video to the container, pay attention to two things:
 - On mapping volume path `/tmp:/movies uploadclass`, you need to replace the `tmp` bit, by whatever path you have your video store whithin.
-- On the file path, `/movies/purpose.mp4`, you need to replace the filename to match the name of your video, but **leave the `/movies/` bit on.
+- On the file path, `/movies/purpose.mp4`, you need to replace the filename to match the name of your video, but **leave the `/movies/` bit on**.
 
 
 ## TODOS
