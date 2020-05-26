@@ -23,18 +23,8 @@ config.read('config.ini')
 slack_token=config.get('slack', 'token')
 slack_channel=config.get('slack', 'channel')
 
+# Initialize slack client
 sc = SlackClient(slack_token)
-
-result = sc.api_call(
-  "chat.postMessage",
-  channel=slack_channel,
-  text="Hello from Python! :tada:"
-)
-
-print result
-
-exit()
-
 
 # Explicitly tell the underlying HTTP transport library not to retry, since
 # we are handling retry logic ourselves.
@@ -95,8 +85,8 @@ https://developers.google.com/api-client-library/python/guide/aaa_client_secrets
 
 VALID_PRIVACY_STATUSES = ("public", "private", "unlisted")
 
-
 def get_authenticated_service(args):
+
   flow = flow_from_clientsecrets(CLIENT_SECRETS_FILE,
     scope=YOUTUBE_UPLOAD_SCOPE,
     message=MISSING_CLIENT_SECRETS_MESSAGE)
@@ -146,11 +136,11 @@ def initialize_upload(youtube, options):
     media_body=MediaFileUpload(options.file, chunksize=-1, resumable=True)
   )
 
-  resumable_upload(insert_request)
+  resumable_upload(insert_request,options.title)
 
 # This method implements an exponential backoff strategy to resume a
 # failed upload.
-def resumable_upload(insert_request):
+def resumable_upload(insert_request,title):
   response = None
   error = None
   retry = 0
@@ -164,7 +154,8 @@ def resumable_upload(insert_request):
           print "Video id '%s' was successfully uploaded." % response['id']
           # Add video to playlist
           #playlistID=playlist_id.strip('"') # strip quotes from string
-          add_video_to_playlist(youtube,response['id'],playlist_id)
+          add_video_to_playlist(youtube,response['id'],
+          playlist_id, title)
         else:
           exit("The upload failed with an unexpected response: %s" % response)
     except HttpError, e:
@@ -188,7 +179,7 @@ def resumable_upload(insert_request):
       time.sleep(sleep_seconds)
 
 
-def add_video_to_playlist(youtube,videoID,playlistID):
+def add_video_to_playlist(youtube,videoID,playlistID,title):
 
   print "Inserting video: %s into playlist: %s" % (videoID, playlistID)
 
@@ -205,6 +196,17 @@ def add_video_to_playlist(youtube,videoID,playlistID):
             }
       }
   ).execute()
+
+  notify_channel(title)
+
+def notify_channel(title):
+
+  result=sc.api_call(
+  "chat.postMessage",
+  channel=slack_channel,
+  text="A video called '%s' was uploaded to the playlist. :clapper:" % (title)
+  )
+  print result
 
 
 if __name__ == '__main__':
