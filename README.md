@@ -31,12 +31,22 @@ The configuration of the video is set on file `and /src/uploadClass/config.in`:
 keywords=FSD, full-time, cohort8
 playlist_id=PL166HWJqwomYGSkUuEz4NpQWvLNlzlpiB
 description=Class from the CodeOp FSD bootcamp
+[slack]
+channel=#general
+token=[sometoken]
 ```
 Please note that there are no quotes or commas, enclosing or separating the values in the configuration file!
 
 The keywords, and description set the keywords and description to be associated with the video you want to upload.
 
 The playlist_id is the id of the playlist, where you want to insert your video (you can grab it from the playlist url!)
+
+## Slack webhook
+
+This application was updated to post a notification message on a slack channel, informing that the video was uploaded.
+In order to enable this feature, you need to install an app on slack, and to enable incoming webhooks. You also need to enable oauth authentication. You can read [here](https://api.slack.com/messaging/webhooks), more about how to use slack webhooks.
+After you setup this, please copy your slack token to the slack section of the `config.ini` file, under the `token` entry.
+The `channel` entry, sets the slack channel where you want to receive the notifications.
 
 ## Install
 
