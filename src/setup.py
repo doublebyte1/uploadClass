@@ -8,6 +8,8 @@ setup(
           'google-api-python-client',
           'ConfigParser',
           'oauth2client',
+          'slack-webhook',
+          'slackclient==1.3.1',
      ],
     license='GPL',
     long_description=open('README.txt').read(),

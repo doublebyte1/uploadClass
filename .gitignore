@@ -1,4 +1,5 @@
 src/uploadClass/client_secrets.json
+src/uploadClass/config.ini
 src/uploadClass/*bak
 src/uploadClass/upload_video.py-oauth2.json
 

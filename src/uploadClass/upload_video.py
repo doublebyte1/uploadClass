@@ -14,6 +14,26 @@ from oauth2client.client import flow_from_clientsecrets
 from oauth2client.file import Storage
 from oauth2client.tools import argparser, run_flow
 from ConfigParser import SafeConfigParser
+from slackclient import SlackClient
+
+# Read config file
+config = SafeConfigParser()
+
+config.read('config.ini')
+slack_token=config.get('slack', 'token')
+slack_channel=config.get('slack', 'channel')
+
+sc = SlackClient(slack_token)
+
+result = sc.api_call(
+  "chat.postMessage",
+  channel=slack_channel,
+  text="Hello from Python! :tada:"
+)
+
+print result
+
+exit()
 
 
 # Explicitly tell the underlying HTTP transport library not to retry, since
@@ -45,11 +65,6 @@ RETRIABLE_STATUS_CODES = [500, 502, 503, 504]
 #   https://developers.google.com/api-client-library/python/guide/aaa_client_secrets
 CLIENT_SECRETS_FILE = "client_secrets.json"
 
-
-# Read config file
-config = SafeConfigParser()
-
-config.read('config.ini')
 keywords=config.get('video', 'keywords')
 playlist_id=config.get('video', 'playlist_id')
 desc=config.get('video', 'description')
