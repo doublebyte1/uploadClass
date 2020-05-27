@@ -197,6 +197,7 @@ def add_video_to_playlist(youtube,videoID,playlistID,title):
       }
   ).execute()
 
+  time.sleep(300)
   notify_channel(title)
 
 def notify_channel(title):
