@@ -197,8 +197,32 @@ def add_video_to_playlist(youtube,videoID,playlistID,title):
       }
   ).execute()
 
-  time.sleep(600)
-  notify_channel(title)
+  checkStatus(videoID, title)
+
+def checkStatus(videoID, title):
+
+  cur_status = 'uploaded'
+
+  while cur_status == 'uploaded':
+
+    status_request = youtube.videos().list(
+      part="status",
+      id=videoID
+    )
+    response = status_request.execute()
+    # TODO: check if we have one item as response
+    cur_status = response['items'][0]['status']['uploadStatus']
+    print cur_status
+    time.sleep(30)
+  
+
+  if (cur_status == 'processed'):
+      notify_channel(title)
+  else:
+      print "There was a problem with the upload of this video: '%s'." % cur_status
+
+
+
 
 def notify_channel(title):
 
