@@ -3,7 +3,7 @@ FROM python:2
 # Create app directory
 WORKDIR /usr/src/app
 
-RUN mkdir -p /movies/
+#RUN mkdir -p /movies/
 
 ADD ./src/ ./
 
