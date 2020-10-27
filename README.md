@@ -102,13 +102,13 @@ Also, take note of the passcode.
 Example of syntax to download a video:
 
 ```bash
-zoomdl -u https://us02web.zoom.us/rec/share/hfBo647uoqwgZXJU_21JLfdALaKW0xAxJkOBgg7TU0iDC5HhZNjUfdoeNs6_QGmS.nwxO9aExy1QZoo0y?startTime=1603733367000 -f /tmp/zoom1.mp4 -p 3j3+n1i@
+zoomdl -u https://us02web.zoom.us/rec/share/hfBo647uoqwgZXJU_21JLfdALaKW0xAxJkOBgg7TU0iDC5HhZNjUfdoeNs6_QGmS.nwxO9aExy1QZoo0y?startTime=1603733367000 -f /tmp/zoom1 -p 3j3+n1i@
 ```
 
 Parameters:
 
 * -u : url of the recording
-* -f : filename
+* -f : filename (without extension)
 * -p : passcode
 
 
