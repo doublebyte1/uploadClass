@@ -82,6 +82,36 @@ When passing the video to the container, pay attention to two things:
 - On mapping volume path `/tmp:/movies uploadclass`, you need to replace the `tmp` bit, by whatever path you have your video store whithin.
 - On the file path, `/movies/purpose.mp4`, you need to replace the filename to match the name of your video, but **leave the `/movies/` bit on**.
 
+## Download Videos
+
+If your videos are stored in the zoom cloud, you can download them using a [third party-application](https://github.com/Battleman/zoomdl).
+
+Install zoomdl:
+
+```bash
+sudo wget https://github.com/Battleman/zoomdl/releases/latest/download/zoomdl -O /usr/bin/zoomdl
+sudo chmod +x /usr/bin/zoomdl
+```
+
+Log in to zoom, and find the url of your recording, by clicking on the recording and selecting share:
+
+![zoom](share_rec.png)
+
+Also, take note of the passcode.
+
+Example of syntax to download a video:
+
+```bash
+zoomdl -u https://us02web.zoom.us/rec/share/hfBo647uoqwgZXJU_21JLfdALaKW0xAxJkOBgg7TU0iDC5HhZNjUfdoeNs6_QGmS.nwxO9aExy1QZoo0y?startTime=1603733367000 -f /tmp/zoom1.mp4 -p 3j3+n1i@
+```
+
+Parameters:
+
+* -u : url of the recording
+* -f : filename
+* -p : passcode
+
+
 
 ## TODOS
 
