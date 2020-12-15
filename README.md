@@ -33,7 +33,7 @@ playlist_id=PL166HWJqwomYGSkUuEz4NpQWvLNlzlpiB
 description=Class from the CodeOp FSD bootcamp
 [slack]
 channel=#general
-token=[sometoken]
+token=[Oauth Access Token]
 ```
 Please note that there are no quotes or commas, enclosing or separating the values in the configuration file!
 
@@ -68,7 +68,7 @@ docker build -t uploadclass .
 With Python:
 
 ```
-python2 upload_video.py --file="/tmp/zoom_0.mp4" \
+python2 upload_video.py --file="/tmp/zoom1.mp4" \
                        --title="Looping through objects" 
 ```
 

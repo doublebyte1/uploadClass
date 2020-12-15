@@ -19,7 +19,7 @@ from slackclient import SlackClient
 # Read config file
 config = SafeConfigParser()
 
-config.read('config.ini')
+config.read('config_DAPT2.ini')
 slack_token=config.get('slack', 'token')
 slack_channel=config.get('slack', 'channel')
 
