@@ -1,6 +1,6 @@
 # UploadClass
 
-This app interacts with the Youtube API, in order to upload videos, and insert them into a playlist.
+This app interacts with Zoom, the Youtube API and the slack API in order to download videos from Zoom, upload them to Youtube and insert them in a playlist, and annouce on Slack when the video is available.
 
 It was originally created for uploading the classes into a Youtube cohort playlist.
 
@@ -48,6 +48,16 @@ In order to enable this feature, you need to install an app on slack, and to ena
 After you setup this, please copy your slack token to the slack section of the `config.ini` file, under the `token` entry.
 The `channel` entry, sets the slack channel where you want to receive the notifications.
 
+## Download Videos
+
+This script uses a [third party-application](https://github.com/Battleman/zoomdl), to download videos from the zoom cloud. In order to download the videos, you will need their *shareable link*. 
+
+
+Log in to zoom, and find the url of your recording, by clicking on the recording and selecting *Copy shareable link*:
+
+![zoom](share_rec.png)
+
+
 ## Install
 
 Using Python2.x:
@@ -68,49 +78,23 @@ docker build -t uploadclass .
 With Python:
 
 ```
-python2 upload_video.py --file="/tmp/zoom1.mp4" \
+python2 upload_video.py --path="/tmp/zoom1" \
+                        --url="https://us02web.zoom.us/rec/share/84tHBvQBDYYDpaeCZpm1VlDPX8ttlGcK9i8mJ6STxLyzI2ApMiew_P58PcYkXc2S.p4n3u2mbug9BpcIE?startTime=1611597121000" \
                        --title="Looping through objects" 
 ```
+
+The `path` argument should contain the path and filename where you want to store temporarily the download, **without the extension**.
+The `url` argument should contain the zoom shareable link. 
 
 With docker:
 
 ```
-docker run  -v /tmp:/movies uploadclass --file="/movies/purpose.mp4" --title="Looping through objects"
+docker run  -v /tmp:/movies uploadclass --path="/movies/zoom1" --url="https://us02web.zoom.us/rec/share/84tHBvQBDYYDpaeCZpm1VlDPX8ttlGcK9i8mJ6STxLyzI2ApMiew_P58PcYkXc2S.p4n3u2mbug9BpcIE?startTime=1611597121000" --title="Looping through objects"
 ```
 
 When passing the video to the container, pay attention to two things:
 - On mapping volume path `/tmp:/movies uploadclass`, you need to replace the `tmp` bit, by whatever path you have your video store whithin.
-- On the file path, `/movies/purpose.mp4`, you need to replace the filename to match the name of your video, but **leave the `/movies/` bit on**.
-
-## Download Videos
-
-If your videos are stored in the zoom cloud, you can download them using a [third party-application](https://github.com/Battleman/zoomdl).
-
-Install zoomdl:
-
-```bash
-sudo wget https://github.com/Battleman/zoomdl/releases/latest/download/zoomdl -O /usr/bin/zoomdl
-sudo chmod +x /usr/bin/zoomdl
-```
-
-Log in to zoom, and find the url of your recording, by clicking on the recording and selecting share:
-
-![zoom](share_rec.png)
-
-Also, take note of the passcode.
-
-Example of syntax to download a video:
-
-```bash
-zoomdl -u https://us02web.zoom.us/rec/share/hfBo647uoqwgZXJU_21JLfdALaKW0xAxJkOBgg7TU0iDC5HhZNjUfdoeNs6_QGmS.nwxO9aExy1QZoo0y?startTime=1603733367000 -f /tmp/zoom1 -p 3j3+n1i@
-```
-
-Parameters:
-
-* -u : url of the recording
-* -f : filename (without extension)
-* -p : passcode
-
+- On the file path, `/movies/zoom`, you need to replace the filename to match the name of your video, but **leave the `/movies/` bit on**.
 
 
 ## TODOS

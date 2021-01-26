@@ -15,4 +15,8 @@ RUN python setup.py install
 
 WORKDIR /usr/src/app/uploadClass
 
+# Install zoomdl
+RUN wget https://github.com/Battleman/zoomdl/releases/latest/download/zoomdl -O /usr/bin/zoomdl
+RUN chmod +x /usr/bin/zoomdl
+
 ENTRYPOINT [ "python2", "upload_video.py" ]

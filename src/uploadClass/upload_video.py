@@ -6,6 +6,7 @@ import os
 import random
 import sys
 import time
+import subprocess
 
 from apiclient.discovery import build
 from apiclient.errors import HttpError
@@ -15,11 +16,12 @@ from oauth2client.file import Storage
 from oauth2client.tools import argparser, run_flow
 from ConfigParser import SafeConfigParser
 from slackclient import SlackClient
+from subprocess import call
 
 # Read config file
 config = SafeConfigParser()
 
-config.read('config_DAPT2.ini')
+config.read('config_DAPT3.ini')
 slack_token=config.get('slack', 'token')
 slack_channel=config.get('slack', 'channel')
 
@@ -133,7 +135,8 @@ def initialize_upload(youtube, options):
     # practice, but if you're using Python older than 2.6 or if you're
     # running on App Engine, you should set the chunksize to something like
     # 1024 * 1024 (1 megabyte).
-    media_body=MediaFileUpload(options.file, chunksize=-1, resumable=True)
+    #media_body=MediaFileUpload(options.file, chunksize=-1, resumable=True)
+    media_body=MediaFileUpload( "%s.mp4" % (options.path), chunksize=-1, resumable=True)
   )
 
   resumable_upload(insert_request,options.title)
@@ -235,7 +238,9 @@ def notify_channel(title):
 
 
 if __name__ == '__main__':
-  argparser.add_argument("--file", required=True, help="Video file to upload")
+  #argparser.add_argument("--file", required=True, help="Video file to upload")
+  argparser.add_argument("--url", required=True, help="Url of file on zoom")
+  argparser.add_argument("--path", required=True, help="Temp file to store download")
   argparser.add_argument("--title", help="Video title", default="Test Title")
   argparser.add_argument("--description", help="Video description",
     default="Test Description")
@@ -248,8 +253,11 @@ if __name__ == '__main__':
     default=VALID_PRIVACY_STATUSES[0], help="Video privacy status.")
   args = argparser.parse_args()
 
-  if not os.path.exists(args.file):
-    exit("Please specify a valid file using the --file= parameter.")
+  call('zoomdl -u %s -f %s'  % (args.url, args.path), shell=True)
+
+  # if not os.path.exists(args.file):
+  #   exit("Please specify a valid file using the --file= parameter.")
+
 
   youtube = get_authenticated_service(args)
   try:
