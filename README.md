@@ -55,7 +55,7 @@ This script uses a [third party-application](https://github.com/Battleman/zoomdl
 
 Log in to zoom, and find the url of your recording, by clicking on the recording and selecting *Copy shareable link*:
 
-![zoom](share_rec.png)
+![zoom](share_link.png)
 
 
 ## Install
