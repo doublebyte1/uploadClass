@@ -116,7 +116,7 @@ def initialize_upload(youtube, options):
       categoryId=27 #options.category
     ),
     status=dict(
-      privacyStatus=VALID_PRIVACY_STATUSES[2] #options.privacyStatus
+      privacyStatus=VALID_PRIVACY_STATUSES[1] #options.privacyStatus
     )
   )
 
