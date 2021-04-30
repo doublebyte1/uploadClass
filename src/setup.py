@@ -10,7 +10,7 @@ setup(
           'oauth2client',
           'slack-webhook',
           'slackclient==1.3.1',
-	  'rsa==4.5',
+	  'rsa==4.7',
      ],
     license='GPL',
     long_description=open('README.txt').read(),
